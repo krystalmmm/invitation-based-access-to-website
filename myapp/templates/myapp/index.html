@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Django Session</title>
+</head>
+<body>
+  <h2>You need invitation code to visit this page.</h2>
+  {% if messages %}
+  <ul class="messages">
+    {% for message in messages %}
+    <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+  </ul>
+  {% endif %}
+ 
+  {% if form %}
+  <form action="{% url 'myapp:code_verify' %}" method="POST">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit">Submit</button>
+  </form>
+  {% else %}
+      <p>This part is hidden content. If you are able to view this part, you invite code is right and the session is still valid.</p>
+  {% endif %}
+  
+</body>
+</html>
